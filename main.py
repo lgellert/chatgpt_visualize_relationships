@@ -3,9 +3,11 @@ import pprint
 import sys
 from datetime import datetime
 
-from utils.constants import COMMAND_CHOICES, TOPIC_CHOICES, TOPIC_ALL, COMMAND_ALL, MODEL_GPT35TURBO, MODEL_CHOICES, \
-    TOPIC_CLASSES, COMMAND_DOWNLOAD, COMMAND_VISNETWORK
-from utils.utils import process_conversation, output_pyvis, load_previous_conversation_results, output_circular
+from utils.constants import COMMAND_CHOICES, TOPIC_CHOICES, TOPIC_ALL, MODEL_GPT35TURBO, MODEL_CHOICES, \
+    TOPIC_CLASSES, COMMAND_DOWNLOAD, COMMAND_VISNETWORK, COMMAND_CIRCULAR_PLOT, COMMAND_FORCE_DIRECTED_PLOT, \
+    COMMAND_BUILD
+from utils.utils import process_conversation, output_pyvis, load_previous_conversation_results, output_circular, \
+    output_directed
 
 VERSION = '1.0'
 
@@ -17,7 +19,6 @@ parser = argparse.ArgumentParser(description='ChatGPT Visualize Relationships co
 parser.add_argument('-command',
                     metavar='command',
                     choices=COMMAND_CHOICES,
-                    default=COMMAND_ALL,
                     type=str,
                     help='The command to run: ' + str(COMMAND_CHOICES) + '.')
 
@@ -45,10 +46,8 @@ parser.add_argument('--version', action='version',
                     version='ChatGPT Visualize Relationships %s' % VERSION)
 
 args = parser.parse_args()
-# print(args)
 
-
-print('Starting ChatGPT: %s' % start_time)
+print('Starting Program - ChatGPT Visualize Relationships: %s' % start_time)
 
 if args.verbose:
     print('Running with arguments: ' + pprint.pformat(args))
@@ -67,26 +66,33 @@ for name, convoClass in topics.items():
     conversation = convoClass(model=args.model, verbose=args.verbose)
 
     # based on the command, run a certain set of steps
-    if args.command == COMMAND_ALL:
-        result = process_conversation(conversation)
-        output_pyvis(conversation, result)
-
     if args.command == COMMAND_DOWNLOAD:
         result = process_conversation(conversation)
 
-    if args.command == COMMAND_VISNETWORK:
+    else:
+        # all other commands rely on JSON being downloaded already
         # load the JSON file from disk
         result = load_previous_conversation_results(conversation)
         if not result:
             sys.exit('Unable to continue, see previous error')
-        # output_pyvis(conversation, result)
-        output_circular(conversation, result)
 
+        if args.command == COMMAND_VISNETWORK:
+            output_pyvis(conversation, result)
 
+        if args.command == COMMAND_CIRCULAR_PLOT:
+            output_circular(conversation, result)
+
+        if args.command == COMMAND_FORCE_DIRECTED_PLOT:
+            output_directed(conversation, result)
+
+        if args.command == COMMAND_BUILD:
+            output_pyvis(conversation, result)
+            output_circular(conversation, result)
+            output_directed(conversation, result)
 
 
 end_time = datetime.now()
 duration = end_time - start_time
-print('Script Complete! Duration: %s' % duration)
+print('Program Complete! Duration: %s' % duration)
 
 

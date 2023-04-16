@@ -1,5 +1,5 @@
 from utils.io_helpers import write_dict_to_json, load_json_to_dict
-from utils.visualization_helpers import output_pyvis_html, output_nx_circular
+from utils.visualization_helpers import output_pyvis_html, output_nx_circular, output_nx_kamada_kawai
 
 
 def process_conversation(conversation):
@@ -31,3 +31,10 @@ def output_circular(conversation, result):
     filename = 'out/' + conversation.get_base_filename() + '_circular.png'
     print('Writing NX Circular Diagram to ' + filename)
     output_nx_circular(result, filename)
+
+
+def output_directed(conversation, result):
+
+    filename = 'out/' + conversation.get_base_filename() + '_directed.png'
+    print('Writing NX Directed Diagram to ' + filename)
+    output_nx_kamada_kawai(result, filename)

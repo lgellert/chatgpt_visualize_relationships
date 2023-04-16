@@ -22,7 +22,7 @@ class FastFoodConversation(BaseConversation):
         },
         {
             'role': 'user',
-            'content': 'create a list of 8 similar places I might enjoy eating at'
+            'content': 'create a list of 10 similar fast food restaurants that offer similar food that I might enjoy eating at'
         },
         {
             'role': 'user',
@@ -51,6 +51,12 @@ class FastFoodConversation(BaseConversation):
 
         if line == 'Popeyes Louisiana Kitchen':
             line = 'Popeyes'
+
+        if line == 'KFC (Kentucky Fried Chicken)':
+            line = 'KFC'
+
+        if line == 'Dunkin\'' or line == 'Dunkin':
+            line = 'Dunkin\' Donuts'
 
         return line
 

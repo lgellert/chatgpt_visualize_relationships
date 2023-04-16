@@ -31,7 +31,7 @@ class PianoPiecesConversation(BaseConversation):
         },
         {
             'role': 'user',
-            'content': 'create a list of 8 similar pieces a student might also enjoy playing'
+            'content': 'create a list of 8 similar pieces a student might also enjoy playing at that level'
         },
         {
             'role': 'user',
@@ -48,18 +48,11 @@ class PianoPiecesConversation(BaseConversation):
         {
             'role': 'user',
             'content': 'Provide the response with one answer per line, no leading numbers or symbols, and no other commentary'
-            # 'content': 'Provide the response in JSON only, following this format. '
-            #            '[{'
-            #            '"name": {name of the piece},'
-            #            '"composer": {composer}'
-            #            '"difficulty_level": {difficulty level}'
-            #            '}]'
-
         }
     ]
 
     def clean_line(self, line):
-        line = super(ClassicalPianoConversation, self).clean_line(line)
+        line = super(PianoPiecesConversation, self).clean_line(line)
 
         # always remove all () since ChatGPT sometimes puts them in, sometimes does not
         line = line.replace('(', '')

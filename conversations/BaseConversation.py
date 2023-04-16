@@ -1,10 +1,11 @@
+import copy
 
 import openai
 
 
 class BaseConversation(object):
     """
-    Abstract class providing interface for getting a list of items from OpenAI ChatGPT,
+    Base class providing methods for getting a list of items from OpenAI ChatGPT,
     and getting recommended/related items.
     """
 
@@ -12,7 +13,7 @@ class BaseConversation(object):
     opening_conversation = []
     recommendations_conversation = []
 
-    def __init__(self, model='gpt-3.5-turbo', temperature=0.5, verbose=False):
+    def __init__(self, model='gpt-3.5-turbo', temperature=0.25, verbose=False):
         self.model = model
         self.temperature = temperature
         self.verbose = verbose
@@ -82,11 +83,10 @@ class BaseConversation(object):
             if self.verbose:
                 print('Getting recommendations for: ' + name)
 
-            # swap in the name of the actual thing to get recommedations for
+            # swap in the name of the actual thing to get recommendations for
             # substituting {name} in the string for the name passed in
-            messages = self.recommendations_conversation
+            messages = copy.deepcopy(self.recommendations_conversation)
             messages[0]['content'] = messages[0]['content'].replace('{name}', name)
-
             result = self.call_open_ai(messages)
         except Exception as e:
             print('Unable to get recommendations from OpenIA')
@@ -101,6 +101,10 @@ class BaseConversation(object):
                 line = self.clean_line(line)
 
                 if self.skip_line(line):
+                    continue
+
+                # sometimes it will include the same item as a recommendation, so throw that out
+                if line == name:
                     continue
 
                 if self.verbose:
@@ -138,6 +142,10 @@ class BaseConversation(object):
                 x = len(str(i)) + 2
                 line = line[x:]
 
+        # if the last character is a ' or ", remove it
+        if line.endswith('"') or line.endswith("'"):
+            line = line[:-1]
+
         return line
 
     def skip_line(self, line):
@@ -154,13 +162,12 @@ class BaseConversation(object):
 
         # it is trying to be friendly, but we don't want this garbage in the data
         if line.startswith('Sure, I') or \
-            line.startswith('Sure I') or \
-            line.startswith('Sure, here') or \
-            line.startswith('Sure here') or \
-            line.startswith('Here are') or \
-            line.startswith('Okay, here') or \
-            line.startswith('Okay here'):
+                line.startswith('Sure I') or \
+                line.startswith('Sure, here') or \
+                line.startswith('Sure here') or \
+                line.startswith('Here are') or \
+                line.startswith('Okay, here') or \
+                line.startswith('Okay here'):
             return True
 
         return False
-

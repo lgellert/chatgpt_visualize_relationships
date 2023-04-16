@@ -3,7 +3,7 @@ import json
 
 def write_dict_to_json(dict_data, filename):
     """
-    Writes a basic python dictionary to a file in JSON format.
+    Writes python dictionary to a file in JSON format.
 
     :param dict_data: the dictionary to save to disk.
     :param filename: where to write the data do e.g. "somefile.json"
@@ -16,6 +16,12 @@ def write_dict_to_json(dict_data, filename):
 
 
 def load_json_to_dict(filename):
+    """
+    Loads file contents into python dictionary.
+
+    :param filename:
+    :return:
+    """
     try:
         with open(filename, 'r') as read_file:
             result = json.load(read_file)
