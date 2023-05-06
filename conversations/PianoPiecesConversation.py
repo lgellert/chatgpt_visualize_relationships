@@ -3,7 +3,7 @@ from conversations.BaseConversation import BaseConversation
 
 class PianoPiecesConversation(BaseConversation):
 
-    title = 'Piano Pieces'
+    title = 'PianoPieces'
     opening_conversation = [
         {
             'role': 'user',

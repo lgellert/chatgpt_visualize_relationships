@@ -5,7 +5,7 @@ The idea of this project is to be able to visualize the data relationships insid
 How it works.
 
 * The 'download' step tool asks ChatGPT (via its API) for a list of popular items (80's movies, fast food restaurants, etc). 
-* Then for each of the original recommendations, the tool asks it what else it might also like that is similar.
+  * For each of the original recommendations, the tool asks it what else I might also like that is similar.
 * The output is filtered for cruft, cleansed and standardized, then saved as JSON in a common format.  
   * This way it can be cleaned up manually as needed before additional processing. 
   * ChatGPTs responses can be very inconsistent, see more notes below on that.
@@ -17,12 +17,14 @@ NOTE: An OpenAI API key is required, **and to get one you have to input a credit
 
 ## List of topics
 
-* 1980's Movies
-* Fast Food Restaurants
-* Classical Piano Pieces
+* _80sMovies_ - what 1980's Movies might I also enjoy?
+* _FastFood_ - what Fast Food Restaurants might I also enjoy?
+* _PianoPieces_ - what are some good Classical Piano Pieces to study that are related/similar?
+* _PrescriptionDrugs_ - what does GPT think people are prescribed in combination the most?
 
 TODO
 
+* Street drugs?
 * Sci-fi books
 * TV shows from 2010-2020
 * Travel destinations
@@ -43,9 +45,10 @@ TODO
 The following command options use the downloaded JSON (download must have been run prior):
 
 * _visnetwork_ - build VisNetwork HTML file of the network graph (creates an HTML file you can double click on and play with the network / nodes in your browser) 
+* _svg_ - builds an svg of the network graph using the `scikit-network` package
 * _cicular_ - builds a png of the network graph using the `networkx.circular_layout`, highlighting the top 3 connected nodes
-* _directed_ - builds a png of the network graph using the `networkx.kamada_kawai_layout`, highlighting the top 3 connected nodes, these can be pretty ugly for dense graphs
-* _build_ - runs visnetwork, circular, and directed
+* _topnodes_ - outputs the top 10 connected nodes in order for the given topic
+* _build_ - runs visnetwork, svg, circular, and topnodes
 
 **topic**
 
@@ -72,13 +75,13 @@ This project works on Python 3.9.x on my Mac laptop. It should work anywhere Pyt
 2. Create a `.python-version` file in the root of the project with content `chatgpt_visualize_relationships` (or whatever your named your virtual env in step 1).
 3. Install dependencies using `pip install -r requirements.txt`.
 4. Run `export OPENAI_API_KEY='sk-...'` with your OpenAI API key in your terminal.
-5. Run `python main.py -c download` to get all the data as JSON. 
+5. Run `python main.py -command download` to get all the data as JSON. 
    1. This is the part that talks to the ChatGPT API. 
    2. The API is SLOW, it can take a minute or two per topic to collect the data.
-6. Run `python main.py -c build` to build the VisNetwork HTML output and png output.
+6. Run `python main.py -command build` to build the VisNetwork HTML output and png output.
 7. Check out the results in `./out/`
-8. You may notice duplicate nodes (very similar names). This can be corrected manually in the the JSON files in `./out/`. 
-   1. ChatGPT has multiple ways of describing the same thing.
+8. You may notice duplicate nodes (very similar names).  This happens because ChatGPT has multiple ways of describing the same thing. 
+   1. Duplicates can be corrected manually in the JSON files in `./out/` using search and replace.
    2. The concrete Conversations classes have logic to try and address this, but it is not perfect.
 
 
@@ -107,9 +110,9 @@ However, in practice using API calls 80% of the time it does it, the other 20% o
 > "Sorry, as an AI language model, I am not able to provide a JSON response only."
 
 This is in spite of the fact that I TOLD IT to return JSON and NOTHING else.
-So it is a bit psycho or split personality, and you never know which one you will get... which seems very non-computer like but it is designed to vary the output to seem more human like.
+So it acts a bit difficult at times, and you never know which one you will get... which seems very non-computer like but it is designed to vary the output to seem more human like.
 
-For a script like this that makes repeated calls, having the output format alternate between text, json, and sometimes a mix is unacceptable.
+For a script like this that makes repeated calls, having the output format alternate between text and json is unacceptable.
 So the solution was to tell it to return a plain list.
 
 ```
@@ -139,7 +142,6 @@ However, the way ChatGPT formats the responses is all over the place.  With Moza
 3. Add additional conversations, perhaps ones that are more controversial or dig into biases the AI has.
 4. Run it with different 'temperatures' which is a parameter ChatGPT 3.5 offers that tells it how random/risky the response should be. 0 is static, and 1 is the max. Code currently has 1 for temperature, so the results do change from run to run.
 5. Add ability to output network graphs side by side, improve browsability of the results.
-6. Improved directed graph output with Graphvis library and pygraphviz.
 
 
 

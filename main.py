@@ -4,10 +4,10 @@ import sys
 from datetime import datetime
 
 from utils.constants import COMMAND_CHOICES, TOPIC_CHOICES, TOPIC_ALL, MODEL_GPT35TURBO, MODEL_CHOICES, \
-    TOPIC_CLASSES, COMMAND_DOWNLOAD, COMMAND_VISNETWORK, COMMAND_CIRCULAR_PLOT, COMMAND_FORCE_DIRECTED_PLOT, \
-    COMMAND_BUILD
+    TOPIC_CLASSES, COMMAND_DOWNLOAD, COMMAND_VISNETWORK, COMMAND_CIRCULAR_PLOT, COMMAND_SCIKIT_SVG, \
+    COMMAND_BUILD, COMMAND_TOP_NODES
 from utils.utils import process_conversation, output_pyvis, load_previous_conversation_results, output_circular, \
-    output_directed
+    output_svg, output_top_nodes
 
 VERSION = '1.0'
 
@@ -82,13 +82,18 @@ for name, convoClass in topics.items():
         if args.command == COMMAND_CIRCULAR_PLOT:
             output_circular(conversation, result)
 
-        if args.command == COMMAND_FORCE_DIRECTED_PLOT:
-            output_directed(conversation, result)
+        if args.command == COMMAND_SCIKIT_SVG:
+            output_svg(conversation, result)
+
+        if args.command == COMMAND_TOP_NODES:
+            output_top_nodes(name, result)
 
         if args.command == COMMAND_BUILD:
             output_pyvis(conversation, result)
             output_circular(conversation, result)
-            output_directed(conversation, result)
+            output_svg(conversation, result)
+            output_top_nodes(conversation, result)
+
 
 
 end_time = datetime.now()

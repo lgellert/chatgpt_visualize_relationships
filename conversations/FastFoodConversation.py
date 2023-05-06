@@ -3,7 +3,7 @@ from conversations.BaseConversation import BaseConversation
 
 class FastFoodConversation(BaseConversation):
 
-    title = 'Fast Food Restaurants'
+    title = 'FastFood'
     opening_conversation = [
         {
             'role': 'user',
@@ -22,7 +22,7 @@ class FastFoodConversation(BaseConversation):
         },
         {
             'role': 'user',
-            'content': 'create a list of 10 similar fast food restaurants that offer similar food that I might enjoy eating at'
+            'content': 'create a list of 8 similar fast food restaurants that offer similar food that I might enjoy eating at'
         },
         {
             'role': 'user',
@@ -57,6 +57,15 @@ class FastFoodConversation(BaseConversation):
 
         if line == 'Dunkin\'' or line == 'Dunkin':
             line = 'Dunkin\' Donuts'
+
+        if line == 'Hardee\'s/Carl\'s Jr.':
+            line = 'Carl\'s Jr'
+
+        if line == 'Carl\'s Jr.':
+            line = 'Carl\'s Jr'
+
+        if line == 'Dairy Queen (for their chicken strip baskets)':
+            line = 'Dairy Queen'
 
         return line
 

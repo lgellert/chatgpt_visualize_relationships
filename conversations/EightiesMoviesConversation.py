@@ -3,11 +3,11 @@ from conversations.BaseConversation import BaseConversation
 
 class EightiesMovieRecommendations(BaseConversation):
 
-    title = '1980\'s Movies'
+    title = '80sMovies'
     opening_conversation = [
         {
             'role': 'user',
-            'content': 'create a list of the top 25 movies from the 1980\'s'
+            'content': 'create a list of the top 20 movies from the 1980\'s'
         },
         {
             'role': 'user',
@@ -22,7 +22,7 @@ class EightiesMovieRecommendations(BaseConversation):
         },
         {
             'role': 'user',
-            'content': 'create a list of 10 other movies I might enjoy watching also from the 1980\'s in a similar genre'
+            'content': 'create a list of 8 other movies I might enjoy watching also from the 1980\'s in a similar genre'
         },
         {
             'role': 'user',
