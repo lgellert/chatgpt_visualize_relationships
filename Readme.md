@@ -1,5 +1,5 @@
 # Visualizing Relationships in ChatGPT
-#### Video Demo:  <URL HERE>
+#### Video Demo:  https://youtu.be/GdnueRgNEHk
 #### Description: Ask ChatGPT for recommendations about various topics and visualize the relationship as a graph.
 
 The idea of this project is to be able to visualize the data relationships inside ChatGPT for a variety of topics. All we have to do is ask it in the right way to get the data out.
