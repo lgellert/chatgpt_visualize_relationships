@@ -1,7 +1,7 @@
 from conversations.BaseConversation import BaseConversation
 
 
-class EightiesMovieRecommendations(BaseConversation):
+class EightiesMovieConversation(BaseConversation):
 
     title = '80sMovies'
     opening_conversation = [

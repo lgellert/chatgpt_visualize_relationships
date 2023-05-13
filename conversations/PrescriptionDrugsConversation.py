@@ -1,7 +1,7 @@
 from conversations.BaseConversation import BaseConversation
 
 
-class PrescriptionDrugRecommendations(BaseConversation):
+class PrescriptionDrugsConversation(BaseConversation):
 
     title = 'PrescriptionDrugs'
     opening_conversation = [
@@ -22,7 +22,7 @@ class PrescriptionDrugRecommendations(BaseConversation):
         },
         {
             'role': 'user',
-            'content': 'create a list of 10 other prescription drugs I am most likely to be taking'
+            'content': 'create a list of 8 other prescription drugs I am most likely to be taking'
         },
         {
             'role': 'user',
@@ -31,7 +31,7 @@ class PrescriptionDrugRecommendations(BaseConversation):
     ]
 
     def clean_line(self, line):
-        line = super(PerscriptionDrugRecommendations, self).clean_line(line)
+        line = super(PrescriptionDrugsConversation, self).clean_line(line)
 
         # clean up inconsistencies
         # TODO:

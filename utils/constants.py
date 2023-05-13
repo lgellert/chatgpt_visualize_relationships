@@ -1,6 +1,7 @@
-from conversations.EightiesMoviesConversation import EightiesMovieRecommendations
+from conversations.EightiesMoviesConversation import EightiesMovieConversation
 from conversations.FastFoodConversation import FastFoodConversation
 from conversations.PianoPiecesConversation import PianoPiecesConversation
+from conversations.PrescriptionDrugsConversation import PrescriptionDrugsConversation
 
 COMMAND_DOWNLOAD = 'download'
 COMMAND_BUILD = 'build'
@@ -26,15 +27,21 @@ MODEL_CHOICES = [MODEL_GPT35TURBO,
                  MODEL_GPT4_32K_0314]
 
 TOPIC_ALL = 'all'
-TOPIC_80SMOVIES = EightiesMovieRecommendations.title
+TOPIC_80SMOVIES = EightiesMovieConversation.title
 TOPIC_FASTFOOD = FastFoodConversation.title
 TOPIC_PIANO_PIECES = PianoPiecesConversation.title
-TOPIC_CHOICES = [TOPIC_ALL, TOPIC_80SMOVIES, TOPIC_FASTFOOD, TOPIC_PIANO_PIECES]
+TOPIC_PRESCRIPTION_DRUGS = PrescriptionDrugsConversation.title
+TOPIC_CHOICES = [TOPIC_ALL,
+                 TOPIC_80SMOVIES,
+                 TOPIC_FASTFOOD,
+                 TOPIC_PRESCRIPTION_DRUGS,
+                 TOPIC_PIANO_PIECES]
 
 TOPIC_CLASSES = {
-    TOPIC_80SMOVIES: EightiesMovieRecommendations,
+    TOPIC_80SMOVIES: EightiesMovieConversation,
     TOPIC_FASTFOOD: FastFoodConversation,
-    TOPIC_PIANO_PIECES: PianoPiecesConversation
+    TOPIC_PRESCRIPTION_DRUGS: PrescriptionDrugsConversation,
+    TOPIC_PIANO_PIECES: PianoPiecesConversation,
 }
 
 
