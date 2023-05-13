@@ -1,4 +1,6 @@
 # Visualizing Relationships in ChatGPT
+#### Video Demo:  <URL HERE>
+#### Description: Ask ChatGPT for recommendations about various topics and visualize the relationship as a graph.
 
 The idea of this project is to be able to visualize the data relationships inside ChatGPT for a variety of topics. All we have to do is ask it in the right way to get the data out.
 
@@ -25,7 +27,7 @@ NOTE: An OpenAI API key is required, **and to get one you have to input a credit
 
 ## Command Line Options
 
-`python main.py -command {download, build, etc} -topic {all, or eighties, fastfood, etc)`
+`python main.py -command {download, build, etc} -topic {all, or 80sMovies, FastFood, etc)`
 
 **command**
     
@@ -133,7 +135,7 @@ However, the way ChatGPT formats the responses is all over the place.  With Moza
 3. Run it with different 'temperatures' which is a parameter ChatGPT 3.5 offers that tells it how random/risky the response should be. 0 is static, and 1 is the max. Code currently has 1 for temperature, so the results do change from run to run.
 4. Add additional conversations, perhaps ones that are more controversial or dig into biases the AI has.
 5. Improve the output visualization quality.
-6. 
+
 
 ## Possible Topics for Later
 
@@ -146,7 +148,7 @@ My goal at this point was to launch the tool with fairly benign topics. Other fu
 * Programming languages
 * Sci-fi books
 
-Many AI researches have discovered clever ways of trick ChatGPT into saying inappropriate things or provide instructions on how to harm others (aka "jail breaking"). For now I stayed away from such topics, but this tool could potentially be used in combination with a jail break to extract note worth data.
+Many AI researches have discovered clever ways of trick ChatGPT into saying inappropriate things or provide instructions on how to harm others (aka "jail breaking"). For now I stayed away from such topics, but this tool could potentially be used in combination with a jail break to extract noteworthy data.
 
 AI researchers are also interested in what biases are inherent in ChatGPT (racial, gender, cultural, etc). This tool could also be used to help uncover biases in its data relationships.
 

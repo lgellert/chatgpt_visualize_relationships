@@ -120,7 +120,7 @@ def output_scikit_svg(data, filename):
     weights = adjacency.dot(np.ones(adjacency.shape[0]))
 
     svg_data = svg_graph(adjacency, names=names,
-                         node_size_min=2, node_size_max=30, height=1400, width=2000,
+                         node_size_min=2, node_size_max=30, height=1100, width=2000,
                          display_node_weight=True, edge_width=1, edge_width_min=1, edge_width_max=1)
 
     with open(filename, 'w') as outfile:
