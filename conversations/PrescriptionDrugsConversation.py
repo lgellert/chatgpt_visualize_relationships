@@ -29,11 +29,3 @@ class PrescriptionDrugsConversation(BaseConversation):
             'content': 'Provide brand name of the drug, one answer per line, no leading numbers or symbols, and no other commentary'
         }
     ]
-
-    def clean_line(self, line):
-        line = super(PrescriptionDrugsConversation, self).clean_line(line)
-
-        # clean up inconsistencies
-        # TODO:
-
-        return line

@@ -31,7 +31,7 @@ class EightiesMovieConversation(BaseConversation):
     ]
 
     def clean_line(self, line):
-        line = super(EightiesMovieRecommendations, self).clean_line(line)
+        line = super(EightiesMovieConversation, self).clean_line(line)
 
         # clean up inconsistencies
         if line == 'E.T. the Extra-Terrestrial':
