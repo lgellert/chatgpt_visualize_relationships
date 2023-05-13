@@ -4,7 +4,7 @@ The idea of this project is to be able to visualize the data relationships insid
 
 How it works.
 
-* The 'download' step tool asks ChatGPT (via its API) for a list of popular items (80's movies, fast food restaurants, etc). 
+* The 'download' step asks ChatGPT (via its API) for a list of popular items (80's movies, fast food restaurants, etc). 
   * For each of the original recommendations, the tool asks it what else I might also like that is similar.
 * The output is filtered for cruft, cleansed and standardized, then saved as JSON in a common format.  
   * This way it can be cleaned up manually as needed before additional processing. 
@@ -12,7 +12,7 @@ How it works.
 * The 'build' step loads the JSON, converts into a graph (nodes for things, edges for recommendations) and renders it using a few different strategies.
 
 
-NOTE: An OpenAI API key is required, **and to get one you have to input a credit card**. However, it is pretty affordable at this scale. So far on this entire project with all the test calls and trial and error I've spent a grand total of just $0.30. 
+NOTE: An OpenAI API key is required, **and to get one you have to input a credit card**. However, it is pretty affordable at this scale. So far on this entire project with all the test calls and trial and error I've spent a grand total of just $0.32. 
 
 
 ## List of topics
@@ -21,17 +21,6 @@ NOTE: An OpenAI API key is required, **and to get one you have to input a credit
 * _FastFood_ - what Fast Food Restaurants might I also enjoy?
 * _PianoPieces_ - what are some good Classical Piano Pieces to study that are related/similar?
 * _PrescriptionDrugs_ - what does GPT think people are prescribed in combination the most?
-
-TODO
-
-* Street drugs?
-* Sci-fi books
-* TV shows from 2010-2020
-* Travel destinations
-* Brands with bad reputations
-* Good places to work 
-* Careers that pay the best
-* ...??
 
 
 ## Command Line Options
@@ -52,9 +41,10 @@ The following command options use the downloaded JSON (download must have been r
 
 **topic**
 
-* 80sMovies (eighties movies)
-* FastFood  (fast food restaurants)
-* PianoPieces (classical piano pieces)
+* 80sMovies (eighties movies recommendations)
+* FastFood  (fast food restaurant recommendations)
+* PianoPieces (classical piano piece recommendations)
+* PrescriptionDrugs (drugs people taking in combination)
 * _all_ (default, runs the command on all topics)
 
 **model**
@@ -80,11 +70,12 @@ This project works on Python 3.9.x on my Mac laptop. It should work anywhere Pyt
    2. The API is SLOW, it can take a minute or two per topic to collect the data.
 6. Run `python main.py -command build` to build the VisNetwork HTML output and png output.
 7. Check out the results in `./out/`
-8. You may notice duplicate nodes (very similar names).  This happens because ChatGPT has multiple ways of describing the same thing. 
+   1. Open the 'view_all.html' file in your browser for a carousel of the results. Works best in full screen.
+   2. Open the individual *_pyvis.html files.
+9. You may notice duplicate nodes (very similar names).  This happens because ChatGPT has multiple ways of describing the same thing. 
    1. Duplicates can be corrected manually in the JSON files in `./out/` using search and replace.
    2. The concrete Conversations classes have logic to try and address this, but it is not perfect.
-
-
+   
 
 ## Challenges
 
@@ -139,9 +130,33 @@ However, the way ChatGPT formats the responses is all over the place.  With Moza
 
 1. Support additional Language Models (LLMs), such as Bard and others.
 2. Support the gpt-4 model when it comes out, and compare results.
-3. Add additional conversations, perhaps ones that are more controversial or dig into biases the AI has.
-4. Run it with different 'temperatures' which is a parameter ChatGPT 3.5 offers that tells it how random/risky the response should be. 0 is static, and 1 is the max. Code currently has 1 for temperature, so the results do change from run to run.
-5. Add ability to output network graphs side by side, improve browsability of the results.
+3. Run it with different 'temperatures' which is a parameter ChatGPT 3.5 offers that tells it how random/risky the response should be. 0 is static, and 1 is the max. Code currently has 1 for temperature, so the results do change from run to run.
+4. Add additional conversations, perhaps ones that are more controversial or dig into biases the AI has.
+5. Improve the output visualization quality.
+6. 
+
+## Possible Topics for Later
+
+My goal at this point was to launch the tool with fairly benign topics. Other fun topics might be:
+
+* TV shows from 2010-2020 (or other decades)
+* Good places to work
+* Rock bands
+* Popular careers and related careers
+* Programming languages
+* Sci-fi books
+
+Many AI researches have discovered clever ways of trick ChatGPT into saying inappropriate things or provide instructions on how to harm others (aka "jail breaking"). For now I stayed away from such topics, but this tool could potentially be used in combination with a jail break to extract note worth data.
+
+AI researchers are also interested in what biases are inherent in ChatGPT (racial, gender, cultural, etc). This tool could also be used to help uncover biases in its data relationships.
+
+Here are some example controversial topics that could be added later:
+
+* Street drugs (may take some jail breaking)
+* Explosives  (may take some jail breaking)
+* Historical figures (see if they are all white men)
+* Famous people (see if it is USA centric or includes global celebrities, people of color, etc)
+* Travel destinations to safe countries (all white Christian countries?)
 
 
 

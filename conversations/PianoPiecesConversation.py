@@ -83,11 +83,6 @@ class PianoPiecesConversation(BaseConversation):
         line = line.replace(' Sharp ', '-sharp')
         line = line.replace('-Sharp ', '-sharp')
 
-        # fix oddballs
-        line = line.replace('Frédéric', 'Frederic')
-        line = line.replace('Für', 'Fur')
-        line = line.replace('Gymnopédie', 'Gymnopedie')
-
         # clean up the stupid (K545) vs (K 545) vs (K.545)
         if 'mozart' in line.lower():
             line = line.replace('K. ', 'K')

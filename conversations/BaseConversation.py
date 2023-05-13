@@ -1,4 +1,5 @@
 import copy
+import unicodedata
 
 import openai
 
@@ -145,6 +146,11 @@ class BaseConversation(object):
         # if the last character is a ' or ", remove it
         if line.endswith('"') or line.endswith("'"):
             line = line[:-1]
+
+        # replace all accents with regular ASCII characters to smooth out variations
+        str_normalized = unicodedata.normalize('NFKD', line)
+        str_bytes = str_normalized.encode('ASCII', 'ignore')
+        line = str_bytes.decode('ASCII')
 
         return line
 
