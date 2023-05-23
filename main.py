@@ -86,7 +86,7 @@ for name, convoClass in topics.items():
             output_svg(conversation, result)
 
         if args.command == COMMAND_TOP_NODES:
-            output_top_nodes(name, result)
+            output_top_nodes(conversation, result)
 
         if args.command == COMMAND_BUILD:
             output_pyvis(conversation, result)
